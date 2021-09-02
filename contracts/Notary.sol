@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract Notary is ERC721 {
 
-  constructor() ERC721("Star Notary", "STN")  {}
 
   struct Star {
     string name;
@@ -13,6 +12,9 @@ contract Notary is ERC721 {
 
     mapping(uint => Star) public tokenIdToStarInfo;
     mapping(uint => uint) public starsForSale;
+    // bool approved;
+
+  constructor() ERC721("Star Notary", "STN")  {}
 
 
     function createStar(string memory name_, uint _tokenId) public {
@@ -21,18 +23,17 @@ contract Notary is ERC721 {
       _mint(msg.sender, _tokenId);
     }
 
-    function putStarUpForSale(uint _tokenId, uint price_, address payable _to) public {
+    function putStarUpForSale(uint _tokenId, uint price_, address to_) public {
         require(_tokenId > 0, "tokenId must not be zero");
         require(price_ > 0, "token price must not be zero");
       require(ownerOf(_tokenId) == msg.sender, "Only token owner can put up token for sell");
     
-      approve(payable(_to), _tokenId);
+      setApprovalForAll(to_, true);
       starsForSale[_tokenId] = price_;
-
 
     }
     
-    function getStarInfo(uint _tokenId) public view returns(string memory starName) {
+    function lookUpTokenIdToStarInfo(uint _tokenId) public view returns(string memory starName) {
         return starName = tokenIdToStarInfo[_tokenId].name;
         
     }
@@ -63,5 +64,15 @@ contract Notary is ERC721 {
       emit Transfer(ownerAddress, msg.sender, _tokenId);
     }
 
+    // function transferStar(address to_, uint256 tokenId_) public {
+    //   require(ownerOf(tokenId_) == msg.sender);
 
+    //   // _transfer(from, to, tokenId);
+
+    // }
 }
+
+
+
+
+

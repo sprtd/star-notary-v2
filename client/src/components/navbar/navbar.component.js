@@ -4,7 +4,7 @@ import { AccountContext } from '../../contexts/account-context'
 import { NavBarWrapper, NavBarItems, Logo, Hamburger } from './navbar.style'
 
 const Navbar = () => {
-  const { account } = useContext(AccountContext)
+  const { web3Account } = useContext(AccountContext)
   const [toggleNav, setToggleNav] = useState(false)
 
   const handleToggle = () => setToggleNav(prev => !prev)
@@ -25,7 +25,7 @@ const Navbar = () => {
       <NavBarItems toggleNav={ handleToggle }>
         <ul >
           <li>Profile</li>
-          { account ?  <li>{ account.substring(0, 8) }</li> : <li>Connect Wallet</li> }
+          { web3Account ?  <li>{ web3Account.substring(0, 8) }</li> : <li>Connect Wallet</li> }
          
         </ul>
       </NavBarItems>

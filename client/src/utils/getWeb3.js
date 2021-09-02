@@ -35,4 +35,4 @@ const getWeb3 = () =>
     });
   });
 
-export default getWeb3;
+export { getWeb3 };

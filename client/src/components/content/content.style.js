@@ -8,14 +8,23 @@ const ContentWrapper = styled.div`
   height: 60vh;
   width: 60vw;
   align-items: center;
+  h2 {
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 50px;
+
+  }
 `
 
 
 const DappContentWrapper = styled.div`
-  h2 {
-    font-weight: 300;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 
-  }
+
+ 
 
   span {
     width: 60%;
@@ -39,6 +48,7 @@ const InputWrapper = styled.div`
     padding: 10px 10px;
     margin-bottom: 10px;
     display: block;
+    font-size: 18px;
     width: 100%;
   }
   
@@ -48,6 +58,7 @@ const InputWrapper = styled.div`
     cursor: pointer;
     background: #555;
     color: #eee;
+    font-size: 20px;
   }
 
 

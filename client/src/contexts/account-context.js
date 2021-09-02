@@ -8,7 +8,6 @@ const AccountContextProvider = ({ children }) => {
 
   const setWeb3Details = payload => {
     setWeb3Account(payload)
-
   }
 
   return (
