@@ -1,9 +1,14 @@
 import { useState, useContext } from 'react'
 import { AccountContext } from '../../contexts/account-context'
 import { FunctionContext } from '../../contexts/function-context'
+import { TabsContext } from '../../contexts/tabs-context'
+import Tabs from '../tabs/tabs.component'
 import { ContentWrapper, DappContentWrapper, InputWrapper } from './content.style'
 
 const Content = () => {
+  const { createStar, lookUpStar: displayLookUp } = useContext(TabsContext)
+
+  console.log('from where needed', createStar)
 
   const { contract } = useContext(FunctionContext)
   const { web3Account } = useContext(AccountContext)
@@ -37,25 +42,24 @@ const Content = () => {
     } catch(err) {
       console.log(err)
     }
-    
   }
   
   return (
     <ContentWrapper>
-       <h2>StarNotary Token Dapp</h2>
-        <span></span>
+      
+      
+      <Tabs />
+      <span></span>
       <DappContentWrapper>
        
-        <InputWrapper>
-          <h3>Create Star</h3>
-          <input type="text" placeholder='Enter Star Name...' onChange={e => setStarName(e.target.value)} value={ starName }  />
-          <input type="number" placeholder='Enter Star ID' onChange={e => setTokenId(e.target.value) }  value={ tokenId } />
+        <InputWrapper style={{display: createStar ? 'flex' : 'none'}}>
+          <input type="text" placeholder='Enter star name...' onChange={e => setStarName(e.target.value)} value={ starName }  />
+          <input type="text" placeholder='Approve this address...' onChange={e => setTokenId(e.target.value) }  value={ tokenId } />
 
           <button onClick={ mintStar }>Create Star</button>
         </InputWrapper>
 
-        <InputWrapper>
-          <h3>Look Up Star</h3>
+        <InputWrapper style={{display: displayLookUp ? 'flex' : 'none'}}>
           <input type="number" placeholder='Enter Star ID' onChange={e => setLookUpId(e.target.value) }  value={ lookUpId } />
 
           <button onClick={ lookUpStar }>Look Up Star</button>

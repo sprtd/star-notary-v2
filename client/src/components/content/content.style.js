@@ -4,16 +4,11 @@ const ContentWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 60vh;
-  width: 60vw;
+  width: 80vw;
   align-items: center;
-  h2 {
-    font-size: 30px;
-    font-weight: 300;
-    margin-bottom: 50px;
-
-  }
+  
 `
 
 
