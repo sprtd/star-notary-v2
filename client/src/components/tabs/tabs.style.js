@@ -12,7 +12,7 @@ const TabWrapper = styled.div`
   width: 100%;
   height: 8vh;
 
-  margin-bottom: 15vh;
+  margin-bottom: 10vh;
 
 
 

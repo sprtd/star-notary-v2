@@ -9,6 +9,9 @@ const ContentWrapper = styled.div`
   width: 80vw;
   align-items: center;
   
+  h2 {
+    margin-bottom: 5vh;
+  }
 `
 
 
@@ -27,8 +30,6 @@ const DappContentWrapper = styled.div`
     height: 4px;
     border-radius: 5px;
   }
-  
-  
 
 `
 
@@ -55,7 +56,6 @@ const InputWrapper = styled.div`
     color: #eee;
     font-size: 20px;
   }
-
 
 `
 

@@ -1,5 +1,7 @@
-const path = require("path")
 require("dotenv").config({ path: './config/config.env'})
+const path = require("path")
+const HDWalletProvider = require('@truffle/hdwallet-provider')
+
 
 /**
  * Use this file to configure your truffle project. It's seeded with some
@@ -97,7 +99,9 @@ module.exports = {
          providerOrUrl: process.env.RINKEBY_ENDPOINT
 
 
-       })
+       }),
+       network_id: 4,
+       networkCheckTimeout: 999999
 
     }
   },

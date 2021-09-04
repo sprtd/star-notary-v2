@@ -38,8 +38,8 @@ const TabsContextProvider = ({ children }) => {
     setTransferStar(true)
     setCreateStar(false)
 
-    setLookUpStar(true)
-    setExchangeStar(true)
+    setLookUpStar(false)
+    setExchangeStar(false)
 
 
   }
