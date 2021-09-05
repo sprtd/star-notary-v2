@@ -7,7 +7,6 @@ const FunctionContextProvider = ({ children })  => {
 
   const [contract, setContract] = useState(undefined)
 
-  console.log('contract from context', contract)
 
   const setContractInstance = payload => {
     setContract(payload)

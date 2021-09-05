@@ -8,7 +8,6 @@ import { ContentWrapper, DappContentWrapper, InputWrapper } from './content.styl
 const Content = () => {
   const { createStar, lookUpStar: displayLookUp, exchangeStar, transferStar } = useContext(TabsContext)
 
-  console.log('from where needed', createStar)
 
   const { contract } = useContext(FunctionContext)
   const { web3Account } = useContext(AccountContext)
@@ -17,41 +16,46 @@ const Content = () => {
   const [lookUpId, setLookUpId] = useState('')
   const [starMetaData, setStarMetaData] = useState('')
 
-  // exchange stars
-  const [account1, setAccount1] = useState('')
+
+  // create star event
+  const initialCreateStar = {
+    id: '',
+    newStarName: '',
+    createdBy: ''
+  }
+  const [createStarResult, setCreateStarResult] = useState(initialCreateStar)
+
+  const { id, newStarName, createdBy } = createStarResult
+
+  // exchange stars state
   const [account2, setAccount2] = useState('')
   const [tokenId1, setTokenId1] = useState('')
   const [tokenId2, setTokenId2] = useState('')
 
 
-  // transfer star
+  // transfer star state
   const [recipient, setRecipient] = useState('')
 
-
-
-
-  console.log(tokenId)
-  console.log(starName)
-  console.log(recipient)
-
+  // create new star
   const mintStar = async() => {
     try {
 
-      // console.log({ "contract here": contract })
-      await contract.methods.createStar(starName, tokenId).send({ from: web3Account})
+     const mintResult =  await contract.methods.createStar(starName, tokenId).send({ from: web3Account})
+      
+    const { createdBy, newStarId: id, newStarName } = mintResult.events.StarCreated.returnValues
+    setCreateStarResult({ id, newStarName, createdBy })
       setStarName('')
       setTokenId('')
       
     } catch(err) {
       console.log(err)
     }
-
   }
+
 
   const lookUpStar = async() => {
     try{
       const result = await contract.methods.lookUpTokenIdToStarInfo(lookUpId).call()
-      console.log('this is the fetched result', result)
       setStarMetaData(result)
       setLookUpId('')
 
@@ -69,13 +73,13 @@ const Content = () => {
     } catch(err) {
       console.log(err)
     }
-
   }
 
   const handleTransfer = async() => {
     try {
       await contract.methods.transferStar(web3Account, recipient, tokenId).send({ from: web3Account})
-
+      setRecipient('')
+      setTokenId('')
     } catch(err) {
       console.log(err)
     }
@@ -99,6 +103,10 @@ const Content = () => {
           <input type="text" placeholder='Approve this address...' onChange={e => setTokenId(e.target.value) }  value={ tokenId } />
 
           <button onClick={ mintStar }>Create Star</button>
+
+          { id ? <p><b>Star ID:</b> { id }</p> : null}
+          { newStarName ? <p> <b>Star name:</b> { newStarName }</p> : null}
+          { createdBy ? <p><b>Star Owner:</b> { createdBy }</p> : null}
         </InputWrapper>
 
         <InputWrapper style={{display: displayLookUp ? 'flex' : 'none'}}>
@@ -114,8 +122,6 @@ const Content = () => {
           <input type="number" placeholder='Enter tokenID 1...' onChange={e => setTokenId1(e.target.value) }  value={ tokenId1 } />
           <input type="number" placeholder='Enter tokenID 2...' onChange={e => setTokenId2(e.target.value) }  value={ tokenId2 } />
           <input type="text" placeholder='Enter recipient... ' onChange={e => setAccount2(e.target.value) }  value={ account2 } />
-        
-
           <button onClick={ handleExchangeStars }>Exchange Stars</button>
         </InputWrapper>
 
@@ -124,7 +130,6 @@ const Content = () => {
         <InputWrapper style={{display: transferStar ? 'flex' : 'none'}}>
           <input type="number" placeholder='Enter tokenID...' onChange={e => setTokenId(e.target.value)} value={ tokenId }  />
           <input type="text" placeholder='Enter recipient address...' onChange={e => setRecipient(e.target.value) }  value={ recipient } />
-
           <button onClick={ handleTransfer }>Transfer Star</button>
         </InputWrapper>
       

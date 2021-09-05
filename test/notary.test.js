@@ -1,7 +1,4 @@
 const Notary = artifacts.require('./Notary.sol');
-
-
-
 let notary, accounts, owner, addr1, addr2
 
 contract('Notary',  async accs => {
@@ -14,7 +11,6 @@ contract('Notary',  async accs => {
     notary = await Notary.deployed()
 
   })
-
 
   contract('Deployment', async() => {
     it('can add the name and star symbol properly', async() => {
@@ -64,7 +60,6 @@ contract('Notary',  async accs => {
 
   contract('Transfer Star', async() => {
     it('lets user transfer star', async() => {
-      // let star1 = 1
       let totalStars = await notary.tokenId()
       console.log('total stars before creating more stars: ', totalStars.toNumber())
 
@@ -78,7 +73,6 @@ contract('Notary',  async accs => {
 
 
 
-      // let owner1 =  await notary.getOwnerOf(3).then(result => console.log('this is owner1:', result))
       let totalBalanceOfAccount1BeforeTransfer = await notary.getBalanceOf(owner)
       let totalBalanceOfAccount2BeforeTransfer = await notary.getBalanceOf(addr1)
       

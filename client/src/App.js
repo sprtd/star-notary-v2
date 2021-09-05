@@ -9,7 +9,6 @@ const App = () => {
         <Navbar />
         <Switch>
             <Route exact  path='/' component={ MainLayout } />
-            <Route exact  path='/transaction' component={ MainLayout } />
         </Switch>
 
       </Router>

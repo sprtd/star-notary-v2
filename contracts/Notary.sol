@@ -18,8 +18,7 @@ contract Notary is ERC721 {
   mapping(uint => Star) public tokenIdToStarInfo;
     
   mapping(uint => uint) public starsForSale;
-    // bool approved;
-    
+  event StarCreated(uint newStarId, string newStarName, address createdBy);
   constructor() ERC721(starName, starSymbol)  {
     tokenId = 0;
   }
@@ -32,6 +31,7 @@ contract Notary is ERC721 {
     tokenIdToStarInfo[tokenId] = newStar;
     setApprovalForAll(_to, true);
     _mint(msg.sender, tokenId);
+    emit StarCreated(tokenId, starName, msg.sender);
   }
   
 
